@@ -1,5 +1,14 @@
-import styles from './Heading.module.css'
+import type { AppProps } from '../../App';
 
-export function Heading(){
-    return <h1 className={`${styles.heading} ${styles.texto}`}>Página Heading!</h1>
+import styles from './Heading.module.css';
+
+export function Heading({ descricao}: AppProps){
+
+    return (
+        <>
+            <h1 className={`${styles.heading} ${styles.texto}`}>
+                {descricao}
+            </h1>
+        </>
+    )
 }
