@@ -1,17 +1,22 @@
-import { Heading } from './component/heading/Heading'
+import { Container } from "./component/contai/Container.tsx";
+import { Heading } from "./component/heading/Heading";
 
-import './styles/theme.css'
-import './styles/global.css'
+import "./styles/theme.css";
+import "./styles/global.css";
 
-export interface AppProps { descricao: string}
+export interface AppProps {
+  children: React.ReactNode;
+}
 
-export function App (){
-    return (
-        <>
-            <Heading descricao= 'Olá component via propriedades'/>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim laboriosam ab maiores vel? Voluptas at animi commodi a porro accusamus!
-            </p>
-        </>
-    )
+export function App() {
+  return (
+    <>
+      <Container>
+        <Heading>LOGO</Heading>
+      </Container>
+      <Container>
+        <Heading>MENU</Heading>
+      </Container>
+    </>
+  );
 }
