@@ -1,5 +1,5 @@
 import type { AppProps } from '../../App'
-import styles from './Container.module.css'
+import styles from './styles.module.css'
 
 export function Container ({ children }:AppProps){
     return (

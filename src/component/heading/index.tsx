@@ -1,6 +1,6 @@
 import type { AppProps } from '../../App';
 
-import styles from './Heading.module.css';
+import styles from './styles.module.css';
 
 export function Heading({ children}: AppProps){
 
