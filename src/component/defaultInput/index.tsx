@@ -1,10 +1,19 @@
-type defaultInputProps = { id: string } & React.ComponentProps<'input'> // intersection
+import styles from './defaultInput.module.css'
 
-export function DefaultInput({ id, type }: defaultInputProps){
+type defaultInputProps = { 
+    id: string 
+    labelText: string
+} & React.ComponentProps<'input'> // intersection
+
+export function DefaultInput({ id, type, labelText, ...rest }: defaultInputProps){
     return (
         <>
-            <label htmlFor={id}>task</label>
-            <input type={type} id={id} />
+            <label htmlFor={id}>{labelText}</label>
+            <input 
+                className={styles.input} 
+                type={type} 
+                id={id}
+                {...rest} />
         </>
     )
 }
