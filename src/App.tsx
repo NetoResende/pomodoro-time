@@ -3,9 +3,12 @@ import { Logo } from "./component/logo/index.tsx";
 import { Menu } from "./component/menu/index.tsx";
 import { CountDown } from "./component/countDown/index.tsx";
 import { DefaultInput } from "./component/defaultInput/index.tsx";
+import { Cycles } from "./component/cycles/index.tsx";
+import { DefaultButton } from "./component/defaultButton/index.tsx";
+import { PlayCircleIcon} from "lucide-react";
 import "./styles/theme.css";
 import "./styles/global.css";
-import { Cycles } from "./component/cycles/index.tsx";
+import { Footer } from "./component/footer/index.tsx";
 
 export interface AppProps {
   children: React.ReactNode;
@@ -40,9 +43,13 @@ export function App() {
             <Cycles/>
           </div>
           <div className="formrow">
-            <button type="button">enviar</button>
+            <DefaultButton icon={<PlayCircleIcon/>}/>
           </div>
         </form>
+      </Container>
+
+      <Container>
+        <Footer/>
       </Container>
     </>
   );
