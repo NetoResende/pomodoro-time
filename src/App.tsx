@@ -5,16 +5,18 @@ import { CountDown } from "./component/countDown/index.tsx";
 import { DefaultInput } from "./component/defaultInput/index.tsx";
 import { Cycles } from "./component/cycles/index.tsx";
 import { DefaultButton } from "./component/defaultButton/index.tsx";
-import { PlayCircleIcon} from "lucide-react";
+import {  PlayCircleIcon } from "lucide-react";
+import { Footer } from "./component/footer/index.tsx";
 import "./styles/theme.css";
 import "./styles/global.css";
-import { Footer } from "./component/footer/index.tsx";
 
 export interface AppProps {
   children: React.ReactNode;
 }
 
+
 export function App() {
+
   return (
     <>
       <Container>
