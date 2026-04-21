@@ -1,5 +1,5 @@
 import { Container } from "../../component/contai";
-import { GenericHtml } from "../../component/genericHtml";
+import { GenericHtml } from "../../component/generic";
 import { Heading } from "../../component/heading";
 import { MainTemplate } from "../../template/MainTemplate";
 
