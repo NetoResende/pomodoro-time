@@ -1,6 +1,7 @@
 import { Home } from "./pages/home/index.tsx";
 import { useState } from "react";
 import type { TaskStateModel } from "./models/taskStateModel.ts";
+import { TaskContext } from "./contexts/taskContext/index.tsx";
 
 import "./styles/theme.css";
 import "./styles/global.css";
@@ -21,5 +22,9 @@ const initialState: TaskStateModel = {
 export function App() {
   const [ state, setState ] = useState(initialState);
 
-  return <Home state={state} setState={setState}/>;
+  return (
+    <TaskContext.Provider value={{chave1:123456789}}>
+      <Home />
+    </TaskContext.Provider>
+  );
 }
