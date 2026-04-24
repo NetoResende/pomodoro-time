@@ -8,7 +8,7 @@ type defaultButtonProps = {
 export function DefaultButton({ icon, color='green', ...props }: defaultButtonProps){
     return (
         <>
-            <button type='button' className={`${styles.button} ${styles[color]}`} {...props}>
+            <button className={`${styles.button} ${styles[color]}`} {...props}>
                 {icon}
             </button>
         </>

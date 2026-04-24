@@ -1,6 +1,7 @@
 
+import { useTaskContext } from '../../contexts/taskContext/useTaskContext';
 import styles from './styles.module.css';
-import { useTaskContext } from '../../contexts/taskContext';
+
 
 export function CountDown(){
     const {state} = useTaskContext();
