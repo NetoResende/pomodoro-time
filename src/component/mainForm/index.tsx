@@ -3,16 +3,16 @@ import { Cycles } from "../cycles";
 import { DefaultButton } from "../defaultButton";
 import { DefaultInput } from "../defaultInput";
 import { useTaskContext } from "../../contexts/taskContext/useTaskContext";
-import { useState } from "react";
+import { useRef} from "react";
 
 export function MainForm(){
   const {state} = useTaskContext();
-  const [taskName, setTaskName ] = useState("");
   const {workTime} = state.config;
+  const taskNameInput = useRef<HTMLInputElement>(null)
 
   function handlerCreateNewState(e: React.SubmitEvent<HTMLFormElement>){ 
     e.preventDefault()
-    console.log('DEU CERTO', taskName, new Date().toLocaleString());
+    console.log('DEU CERTO', taskNameInput.current.value);
   }
 
   return (
@@ -23,8 +23,7 @@ export function MainForm(){
               id="MeuInput"
               labelText= "Task"
               placeholder='Digite algo'
-              value={taskName}
-              onChange={e => setTaskName(e.target.value)}
+              ref={taskNameInput}
             />
           </div>
           <div className="formrow">
