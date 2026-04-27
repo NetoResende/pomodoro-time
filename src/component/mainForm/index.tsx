@@ -5,22 +5,28 @@ import { DefaultInput } from "../defaultInput";
 import { useTaskContext } from "../../contexts/taskContext/useTaskContext";
 import { useRef } from "react";
 import type { TaskModel } from "../../models/taskModel";
+import { getNextCycles } from "../../utils/getNextcycles";
+import { getNextCyclesType } from "../../utils/getNextCyclesType";
 
 export function MainForm() {
   const { state, setState } = useTaskContext();
   const { workTime } = state.config;
 
   const taskNameInput = useRef<HTMLInputElement>(null);
+  const newCurrentcycle = getNextCycles(state.currentCycle)
+  const newCurrentCyclesType = getNextCyclesType(newCurrentcycle)
 
+  
   function handlerCreateNewState(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    if(taskNameInput.current === null) return;
+    // if(taskNameInput.current === null) return;
     const taskName = taskNameInput.current.value.trim();
   
     if(!taskName){
       alert("Digite o nome da favor!")
       return;
     }
+
     const newTask: TaskModel = {
       id: Date.now().toString(),
       name: taskName,
@@ -28,7 +34,7 @@ export function MainForm() {
       completeDate: null,
       interruptDate: null,
       duration: 1,
-      type: "workTime",
+      type: newCurrentCyclesType,
     }
     const secondsRemaining = newTask.duration * 60;
 
@@ -37,12 +43,13 @@ export function MainForm() {
         ...prevState,
         config: {...prevState.config},
         activeTask: newTask,
-        currentCycle: 1,
+        currentCycle: newCurrentcycle,
         secondsRemaining,
         formattedsecondsRemaining: "00:00",
         tasks: [...prevState.tasks, newTask]
       }
     })
+    taskNameInput.current.value="";
   }
 
   return (
