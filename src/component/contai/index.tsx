@@ -1,7 +1,10 @@
-import type { AppProps } from '../../App'
-import styles from './styles.module.css'
+import styles from './styles.module.css';
 
-export function Container ({ children }:AppProps){
+type cotainerPropsapp = {
+    children: React.ReactNode
+}
+
+export function Container ({ children }:cotainerPropsapp){
     return (
         <div className={styles.container}>
             <div className={styles.content}>
