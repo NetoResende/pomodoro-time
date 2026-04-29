@@ -13,17 +13,16 @@ export function MainForm() {
   const { state, setState } = useTaskContext();
 
   const taskNameInput = useRef<HTMLInputElement>(null);
-  const newCurrentcycle = getNextCycles(state.currentCycle)
-  const newCurrentCyclesType = getNextCyclesType(newCurrentcycle)
-
+  const newCurrentcycle = getNextCycles(state.currentCycle);
+  const newCurrentCyclesType = getNextCyclesType(newCurrentcycle);
 
   function handlerCreateNewState(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     // if(taskNameInput.current === null) return;
     const taskName = taskNameInput.current.value.trim();
-  
-    if(!taskName){
-      alert("Digite o nome da favor!")
+
+    if (!taskName) {
+      alert("Digite o nome da favor!");
       return;
     }
 
@@ -35,20 +34,20 @@ export function MainForm() {
       interruptDate: null,
       duration: state.config[newCurrentCyclesType],
       type: newCurrentCyclesType,
-    }
+    };
     const secondsRemaining = newTask.duration * 60;
 
-    setState(prevState => {
+    setState((prevState) => {
       return {
         ...prevState,
-        config: {...prevState.config},
+        config: { ...prevState.config },
         activeTask: newTask,
         currentCycle: newCurrentcycle,
         secondsRemaining,
         formattedsecondsRemaining: formattesSecondsToMinutes(secondsRemaining),
-        tasks: [...prevState.tasks, newTask]
-      }
-    })
+        tasks: [...prevState.tasks, newTask],
+      };
+    });
     // taskNameInput.current.value="";
   }
 
@@ -61,14 +60,17 @@ export function MainForm() {
           labelText="Task"
           placeholder="Digite algo"
           ref={taskNameInput}
+          disabled={!!state.activeTask}
         />
       </div>
       <div className="formrow">
         <p>O Próximo intervalo é de {state.secondsRemaining / 60}min</p>
       </div>
-      <div className="formrow">
-        <Cycles />
-      </div>
+      {state.currentCycle > 0  && (
+        <div className="formrow">
+          <Cycles />
+        </div>
+      )}
       <div className="formrow">
         <DefaultButton icon={<PlayCircleIcon />} />
       </div>
