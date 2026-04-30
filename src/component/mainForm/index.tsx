@@ -48,20 +48,25 @@ export function MainForm() {
         tasks: [...prevState.tasks, newTask],
       };
     });
-    
   }
-  function hndlerInterrupterTask(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
-    e.preventDefault()
+  function hndlerInterrupterTask(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    e.preventDefault();
     setState((prevState) => {
       return {
         ...prevState,
         activeTask: null,
-        currentCycle: null,
         secondsRemaining: 0,
-        formattedsecondsRemaining:"00:00"
+        formattedsecondsRemaining: "00:00",
+        tasks: prevState.tasks.map((task) => {
+          if (prevState.activeTask && prevState.activeTask.id === task.id) {
+            return { ...task, interruptDate: Date.now() };
+          }
+          return task;
+        }),
       };
-    })
-     taskNameInput.current.value="";
+    });
   }
 
   return (
@@ -79,27 +84,27 @@ export function MainForm() {
       <div className="formrow">
         <p>O Próximo intervalo é de {state.secondsRemaining / 60}min</p>
       </div>
-      {state.currentCycle > 0  && (
+      {state.currentCycle > 0 && (
         <div className="formrow">
           <Cycles />
         </div>
       )}
       <div className="formrow">
         {!state.activeTask ? (
-          <DefaultButton 
-            area-label="Iniciar nova tarefa" 
+          <DefaultButton
+            area-label="Iniciar nova tarefa"
             title="Iniciar nova tarefa"
-            type="submit" 
-            icon={<PlayCircleIcon />} 
+            type="submit"
+            icon={<PlayCircleIcon />}
             key="Butao_submit"
           />
         ) : (
-          <DefaultButton 
+          <DefaultButton
             area-label="Interromper tarefa atual"
-            title="Interromper tarefa atual" 
+            title="Interromper tarefa atual"
             type="button"
             color="red"
-            icon={<StopCircleIcon />} 
+            icon={<StopCircleIcon />}
             key="Butao_button"
             onClick={hndlerInterrupterTask}
           />
