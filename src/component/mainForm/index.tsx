@@ -48,7 +48,20 @@ export function MainForm() {
         tasks: [...prevState.tasks, newTask],
       };
     });
-    // taskNameInput.current.value="";
+    
+  }
+  function hndlerInterrupterTask(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
+    e.preventDefault()
+    setState((prevState) => {
+      return {
+        ...prevState,
+        activeTask: null,
+        currentCycle: null,
+        secondsRemaining: 0,
+        formattedsecondsRemaining:"00:00"
+      };
+    })
+     taskNameInput.current.value="";
   }
 
   return (
@@ -78,6 +91,7 @@ export function MainForm() {
             title="Iniciar nova tarefa"
             type="submit" 
             icon={<PlayCircleIcon />} 
+            key="Butao_submit"
           />
         ) : (
           <DefaultButton 
@@ -86,6 +100,8 @@ export function MainForm() {
             type="button"
             color="red"
             icon={<StopCircleIcon />} 
+            key="Butao_button"
+            onClick={hndlerInterrupterTask}
           />
         )}
       </div>
