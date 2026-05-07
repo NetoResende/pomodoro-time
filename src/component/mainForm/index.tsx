@@ -8,6 +8,7 @@ import type { TaskModel } from "../../models/taskModel";
 import { getNextCyclesType } from "../../utils/getNextCyclesType";
 import { TaskActionTypes } from "../../contexts/taskContext/taskAction";
 import { getNextCycles } from "../../utils/getNextcycles";
+import { Tips } from "../tips";
 
 export function MainForm() {
   const { state, dispatch } = useTaskContext();
@@ -35,7 +36,6 @@ export function MainForm() {
       duration: state.config[newCurrentCyclesType],
       type: newCurrentCyclesType,
     };
-    
     dispatch({type: TaskActionTypes.START_TASK, payload: newTask})
   }
 
@@ -56,7 +56,7 @@ export function MainForm() {
         />
       </div>
       <div className="formrow">
-        <p>O Próximo intervalo é de {state.secondsRemaining / 60}min</p>
+        <Tips/>
       </div>
       {state.currentCycle > 0 && (
         <div className="formrow">
