@@ -5,27 +5,27 @@ import { DefaultInput } from "../defaultInput";
 import { useTaskContext } from "../../contexts/taskContext/useTaskContext";
 import { useRef } from "react";
 import type { TaskModel } from "../../models/taskModel";
-import { getNextCycles } from "../../utils/getNextcycles";
 import { getNextCyclesType } from "../../utils/getNextCyclesType";
-import { formattesSecondsToMinutes } from "../../utils/formattedSecondsToMinutes";
+import { TaskActionTypes } from "../../contexts/taskContext/taskAction";
+import { getNextCycles } from "../../utils/getNextcycles";
 
 export function MainForm() {
-  const { state, setState } = useTaskContext();
-
+  const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
+
   const newCurrentcycle = getNextCycles(state.currentCycle);
   const newCurrentCyclesType = getNextCyclesType(newCurrentcycle);
 
   function handlerCreateNewState(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    // if(taskNameInput.current === null) return;
+    e.preventDefault()
+
+     if(taskNameInput.current === null) return;
     const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
       alert("Digite o nome da favor!");
       return;
     }
-
     const newTask: TaskModel = {
       id: Date.now().toString(),
       name: taskName,
@@ -35,38 +35,12 @@ export function MainForm() {
       duration: state.config[newCurrentCyclesType],
       type: newCurrentCyclesType,
     };
-    const secondsRemaining = newTask.duration * 60;
-
-    setState((prevState) => {
-      return {
-        ...prevState,
-        config: { ...prevState.config },
-        activeTask: newTask,
-        currentCycle: newCurrentcycle,
-        secondsRemaining,
-        formattedsecondsRemaining: formattesSecondsToMinutes(secondsRemaining),
-        tasks: [...prevState.tasks, newTask],
-      };
-    });
+    
+    dispatch({type: TaskActionTypes.START_TASK, payload: newTask})
   }
-  function hndlerInterrupterTask(
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
-    e.preventDefault();
-    setState((prevState) => {
-      return {
-        ...prevState,
-        activeTask: null,
-        secondsRemaining: 0,
-        formattedsecondsRemaining: "00:00",
-        tasks: prevState.tasks.map((task) => {
-          if (prevState.activeTask && prevState.activeTask.id === task.id) {
-            return { ...task, interruptDate: Date.now() };
-          }
-          return task;
-        }),
-      };
-    });
+
+  function hndlerInterrupterTask() {
+    dispatch({type: TaskActionTypes.INTERRUP_TASK})
   }
 
   return (
