@@ -19,10 +19,10 @@ export function MainForm() {
 
   function handlerCreateNewState(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
-
+    
      if(taskNameInput.current === null) return;
     const taskName = taskNameInput.current.value.trim();
-
+    
     if (!taskName) {
       alert("Digite o nome da favor!");
       return;
@@ -36,6 +36,7 @@ export function MainForm() {
       duration: state.config[newCurrentCyclesType],
       type: newCurrentCyclesType,
     };
+    
     dispatch({type: TaskActionTypes.START_TASK, payload: newTask})
   }
 
